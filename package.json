@@ -1,0 +1,38 @@
+{
+  "name": "munchy",
+  "description": "A prototype of turn-based realtime multiplayer Web game, based on HTML5 canvas and NodeJS",
+  "version": "0.1.0",
+  "author": "Bastien Tanésie <bastien.tanesie@gmail.com>",
+  "contributors": [
+    {
+      "name": "Bastien Tanésie",
+      "email": "bastien.tanesie@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bastientanesie/munchy"
+  },
+  "keywords": [
+    "web",
+    "game",
+    "node",
+    "html5",
+    "createjs",
+    "realtime",
+    "multiplayer"
+  ],
+  "dependencies": {
+    "ejs": "*",
+    "express": "*",
+    "less": "*",
+    "less-middleware": "*",
+    "pathfinding": "*",
+    "socket.io": "*"
+  },
+  "main": "./server.js",
+  "license": "GNU GPL v2",
+  "engines": {
+    "node": ">= 0.9.0"
+  }
+}
