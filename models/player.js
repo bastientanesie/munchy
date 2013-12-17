@@ -20,6 +20,7 @@ function Player(id, username, socket, game, PF)
 	this.posY = 0;
 	this.x = 0;
 	this.y = 0;
+	this.path = null;
 	this.HP = 100;
 	this.AP = 3;
 }
@@ -124,15 +125,15 @@ Player.prototype.findPath = function(posX, posY)
 			this.path[i].shift();
 			this.path.length--;
 		}
-
-		// On renvoie le chemin trouvé
-		return this.path;
 	}
 	// Sinon, chemin introuvable
 	else
 	{
-		return false;
+		this.path = false;
 	}
+
+	// On renvoie le chemin trouvé
+	return this.path;
 };
 
 
@@ -169,7 +170,7 @@ Player.prototype.moveTo = function(posX, posY, useAP)
 		}
 
 		// On prévient les autres joueurs
-		this.socket.broadcast.emit('game:player_move_to', this.serialized(), posX, posY);
+		this.socket.broadcast.emit('game:player_move_to', this.serialized(), posX, posY, this.path);
 
 		// On prévient LE joueur en lui-même
 		this.socket.emit('game:move_to', this.serialized(), posX, posY);

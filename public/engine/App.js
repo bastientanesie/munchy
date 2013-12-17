@@ -319,11 +319,14 @@ socket.on('game:move_to', function(player_data, posX, posY)
 /**
  * Un joueur se déplace
  */
-socket.on('game:player_move_to', function(player_data, posX, posY)
+socket.on('game:player_move_to', function(player_data, posX, posY, path)
 {
 	// TODO: le serveur envoie le chemin utilisé par le joueur pour se déplacer
 	
 	console.log('game:player_move_to [' + posX + ',' + posY + ']', player_data.username);
+
+	// On enregistre le chemin choisi par le joueur
+	game.canvas.path = path;
 
 	// On récupère le joueur
 	var player = game.engine.getPlayer(player_data.id);
@@ -331,8 +334,12 @@ socket.on('game:player_move_to', function(player_data, posX, posY)
 	// On récupère la case cible
 	var box = game.canvas.move_grid.getChildByName('grid_' + posY + '_' + posX);
 
-	// On bouge le joueur
-	player.moveTo(box);
+	// On récupère le chemin actuel (copie)
+	var path = jQuery.extend(true, {}, game.canvas.path);
+	path.length = game.canvas.path.length;
+
+	// On déplace le joueur
+	game.canvas.movePlayerTo(player, box, path);
 
 	// On MàJ les AP
 	player.AP = player_data.AP;
